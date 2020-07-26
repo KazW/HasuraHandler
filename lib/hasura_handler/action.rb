@@ -6,7 +6,6 @@ module HasuraHandler
 
       def action_name(action_name)
         raise 'action_name must be a symbol or string' unless action_name.is_a?(Symbol) || action_name.is_a?(String)
-        raise 'action_name already used' if @@hasura_actions.keys.include?(action_name.to_s)
 
         @@hasura_actions[action_name.to_s] = self
         @hasura_action_name = action_name.to_s
