@@ -1,4 +1,4 @@
-# HasuraHandler
+# HasuraHandler![tests](https://github.com/KazW/HasuraHandler/workflows/tests/badge.svg)
 Short description and motivation.
 
 ## Usage
