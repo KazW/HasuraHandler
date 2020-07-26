@@ -19,6 +19,10 @@ module HasuraHandler
           handler.run
         end
       end
+
+      if event_handlers.size == 0
+        Rails.logger.debug('[HasuraHandler] Received event with no matching handlers.')
+      end
     end
 
     private
@@ -28,6 +32,7 @@ module HasuraHandler
       descendants.
       map{ |klass| [klass, klass.hasura_matchers] }.
       to_h.
+      select{ |klass, matchers| matchers.present? }.
       map{ |klass,matchers| [klass, check_matchers(matchers)] }.
       to_h.
       select{ |klass,match| match }.
@@ -35,8 +40,8 @@ module HasuraHandler
     end
 
     def check_matchers(matchers)
-      matchers.all? do |matcher|
-        @event.send(matcher.first) == matcher.last
+      matchers.all? do |field,value|
+        @event.send(field) == value
       end
     end
   end

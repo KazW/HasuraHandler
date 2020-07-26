@@ -4,6 +4,7 @@ module HasuraHandler
                 :table,
                 :trigger,
                 :event,
+                :op,
                 :created_at,
                 :raw_event,
                 :errors,
@@ -11,9 +12,10 @@ module HasuraHandler
 
     def initialize(event)
       @id = event['id']
-      @table = event['table']
-      @trigger = event['trigger']
+      @table = event['table']['name']
+      @trigger = event['trigger']['name']
       @event = event['event']
+      @op = event['event']['op']
       @created_at = event['created_at']
       @raw_event = event
       @errors = {}
@@ -42,21 +44,21 @@ module HasuraHandler
     end
 
     def validate_table
-      unless @table.is_a?(Hash)
+      unless @raw_event['table'].is_a?(Hash)
         @errors['table'] = 'not a hash'
         return
       end
 
-      string_fields?(@table, 'table', [:schema, :name])
+      string_fields?(@raw_event['table'], 'table', [:schema, :name])
     end
 
     def validate_trigger
-      unless @trigger.is_a?(Hash)
+      unless @raw_event['trigger'].is_a?(Hash)
         @errors['trigger'] = 'not a hash'
         return
       end
 
-      string_fields?(@trigger, 'trigger', [:name])
+      string_fields?(@raw_event['trigger'], 'trigger', [:name])
     end
 
     def validate_event

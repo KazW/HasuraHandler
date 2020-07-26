@@ -3,7 +3,7 @@ module HasuraHandler
     queue_as HasuraHandler.event_job_queue
 
     def perform(event)
-      HasuraHandler::EventHandler.new(event).process
+      HasuraHandler::EventProcessor.new(event).process
     end
   end
 end
