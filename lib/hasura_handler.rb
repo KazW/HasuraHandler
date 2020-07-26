@@ -15,7 +15,7 @@ module HasuraHandler
                    :fanout_events,
                    :retry_after
 
-    self.auth_header = 'X-Hasura-Service-Key'
+    self.auth_header = 'HTTP_X_HASURA_SERVICE_KEY'
     self.events_enabled = true
     self.async_events = true
     self.fanout_events = true

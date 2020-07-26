@@ -9,5 +9,9 @@ module HasuraHandler
         render json: { error: true, message: 'unable to authenticate request' }, status: 401
       end
     end
+
+    def full_params
+      ActionController::Parameters.new(JSON.parse(request.body.read))
+    end
   end
 end

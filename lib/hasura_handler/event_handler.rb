@@ -12,8 +12,6 @@ module HasuraHandler
           raise 'invalid matcher value' unless matchers[matcher].is_a?(String)
         end
 
-        raise 'run method not defined' unless new(nil).respond_to?(:run)
-
         @hasura_matchers = matchers
       end
     end

@@ -10,11 +10,11 @@ module HasuraHandler
                 :valid
 
     def initialize(event)
-      @id = event[:id]
-      @table = event[:table]
-      @trigger = event[:trigger]
-      @event = event[:event]
-      @created_at = event[:created_at]
+      @id = event['id']
+      @table = event['table']
+      @trigger = event['trigger']
+      @event = event['event']
+      @created_at = event['created_at']
       @raw_event = event
       @errors = {}
 
@@ -65,7 +65,7 @@ module HasuraHandler
         return
       end
 
-      @errors['event.session_variables'] = 'not a hash' unless @event[:session_variables].is_a?(Hash)
+      @errors['event.session_variables'] = 'not a hash' unless @event['session_variables'].is_a?(Hash)
       string_fields?(@event, 'event', [:op])
 
       [:new, :old].each do |field|

@@ -2,8 +2,8 @@ require_dependency 'hasura_handler/application_controller'
 
 module HasuraHandler
   class EventsController < ApplicationController
-    def process
-      processor = HasuraHandler::EventHandler.new(event_params)
+    def index
+      processor = HasuraHandler::EventHandler.new(event_params.to_h)
 
       unless processor.event.valid?
         error_response(processor.event.errors)
@@ -32,7 +32,7 @@ module HasuraHandler
     end
 
     def event_params
-      params.permit(
+      full_params.permit(
         :id,
         :created_at,
         table: [
