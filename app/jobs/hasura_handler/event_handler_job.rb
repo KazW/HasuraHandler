@@ -4,7 +4,7 @@ module HasuraHandler
 
     def perform(handler_class, event)
       klass = handler_class.constantize
-      handler = klass.new(event)
+      handler = klass.new(HasuraHandler::Event.new(event))
       handler.run
     end
   end

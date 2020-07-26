@@ -1,5 +1,6 @@
 require 'hasura_handler/engine'
 require 'hasura_handler/event_handler'
+require 'hasura_handler/event_processor'
 require 'hasura_handler/event'
 require 'hasura_handler/action'
 

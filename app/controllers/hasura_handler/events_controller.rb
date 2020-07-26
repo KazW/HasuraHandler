@@ -3,7 +3,7 @@ require_dependency 'hasura_handler/application_controller'
 module HasuraHandler
   class EventsController < ApplicationController
     def index
-      processor = HasuraHandler::EventHandler.new(event_params.to_h)
+      processor = HasuraHandler::EventProcessor.new(event_params.to_h)
 
       unless processor.event.valid?
         error_response(processor.event.errors)

@@ -16,6 +16,8 @@ module HasuraHandler
       end
     end
 
+    attr_reader :event
+
     def initialize(event)
       @event = event
     end
