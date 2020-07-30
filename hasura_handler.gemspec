@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email       = ['me@kaz.codes']
   spec.homepage    = 'https://github.com/KazW/HasuraHandler'
   spec.summary     = 'Integrates Hasura with Rails'
-  spec.description = 'Provides an easy way to build custom backends for Hasura.'
+  spec.description = 'HasuraHandler is a Rails framework that makes building microservices for Hasura easy.'
   spec.license     = 'MIT'
 
   spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
