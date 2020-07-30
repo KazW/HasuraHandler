@@ -2,16 +2,18 @@
 layout: default
 title:
 nav_order: 1
-description: "HasuraHandler is a micro-framework built in Rails that is designed to make integrating with Hasura very easy."
+description: >-
+  HasuraHandler is a Rails framework that makes building microservices for Hasura easy.
+  HasuraHandler also simplifies adding Hasura to an existing Rails stack.
 permalink: /
 last_modified_date: 2020-07-27T05:39:31+0000
 ---
 
-# Pair Hasura with Rails
+# Build Realtime Rails apps
 {: .fs-9 }
 
-Use Hasura and HasuraHandler to build new apps using Rails powered microservices,
-or use it with Hasura to add GraphQL to an existing postgres-backed app.
+HasuraHandler is a Rails framework that makes building microservices for Hasura easy.
+HasuraHandler also simplifies adding Hasura to an existing Rails stack.
 {: .fs-6 .fw-300 }
 
 [Learn about Hasura](https://hasura.io/docs/1.0/graphql/manual/index.html){: .btn .fs-5 .mb-4 .mb-md-0 }
