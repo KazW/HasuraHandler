@@ -12,3 +12,4 @@ gemspec
 # your gem to rubygems.org.
 
 gem 'pry-rails', '~> 0.3.9', group: [:development, :test]
+gem 'simplecov', require: false, group: :test
