@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  publish:
+  publish-docs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -15,7 +15,10 @@ jobs:
       - name: Setup caching
         uses: actions/cache@v2
         with:
-          path: docs/vendor/bundle
+          path: |
+            docs/vendor/bundle
+            docs/.jekyll-cache
+            docs/.jekyll-metadata
           key: doc-gems-${{ hashFiles('docs/Gemfile.lock') }}
           restore-keys: |
             doc-gems-${{ github.ref }}
@@ -26,14 +29,15 @@ jobs:
         with:
           ruby-version: 2.6
 
+      - name: Install Jekyll
+        working-directory: docs
+        run: bundle install --deployment
+
       - name: Build docs
         working-directory: docs
-        run: |
-          bundle install
-          bundle exec just-the-docs rake search:init
-          bundle exec jekyll build
+        run: bundle exec jekyll build --incremental
 
-      - name: Publish
+      - name: Publish gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
