@@ -16,7 +16,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: docs/vendor/bundle
-          key: gems-${{ hashFiles('docs/Gemfile.lock') }}
+          key: doc-gems-${{ hashFiles('docs/Gemfile.lock') }}
           restore-keys: |
             doc-gems-${{ github.ref }}
             doc-gems
@@ -33,9 +33,8 @@ jobs:
           bundle exec just-the-docs rake search:init
           bundle exec jekyll build
 
-      - name: Publish generated content to GitHub Pages
-        uses: tsunematsu21/actions-publish-gh-pages@v1.0.1
+      - name: Publish
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          dir: docs/_site
-          branch: gh-pages
-          token: ${{ secrets.ACCESS_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/_site
