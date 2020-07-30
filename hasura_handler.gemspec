@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description = 'HasuraHandler is a Rails framework that makes building microservices for Hasura easy.'
   spec.license     = 'MIT'
 
-  s.metadata = {
+  spec.metadata = {
     'bug_tracker_uri'   => 'https://github.com/KazW/HasuraHandler/issues',
     'documentation_uri' => 'https://kazw.github.io/HasuraHandler',
     'homepage_uri'      => 'https://kazw.github.io/HasuraHandler',
