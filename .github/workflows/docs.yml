@@ -18,8 +18,8 @@ jobs:
           path: docs/vendor/bundle
           key: gems-${{ hashFiles('docs/Gemfile.lock') }}
           restore-keys: |
-            gems-${{ github.ref }}
-            gems
+            doc-gems-${{ github.ref }}
+            doc-gems
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
