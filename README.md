@@ -1,28 +1,9 @@
 # HasuraHandler ![tests](https://github.com/KazW/HasuraHandler/workflows/tests/badge.svg)
-Short description and motivation.
+HasuraHandler is a Rails framework that makes building microservices for Hasura easy.
+HasuraHandler also simplifies adding Hasura to an existing Rails stack.
 
 ## Usage
-How to use my plugin.
-
-## Installation
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'hasura_handler'
-```
-
-And then execute:
-```bash
-$ bundle
-```
-
-Or install it yourself as:
-```bash
-$ gem install hasura_handler
-```
-
-## Contributing
-Contribution directions go here.
+Please see the [documentation site](https://kazw.github.io/HasuraHandler).
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
