@@ -1,12 +1,8 @@
 $:.push File.expand_path('lib', __dir__)
 
-# Maintain your gem's version:
-require 'hasura_handler/version'
-
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = 'hasura_handler'
-  spec.version     = HasuraHandler::VERSION
+  spec.version     = '0.1.4'
   spec.authors     = ['Kaz Walker']
   spec.email       = ['me@kaz.codes']
   spec.homepage    = 'https://kazw.github.io/HasuraHandler'
