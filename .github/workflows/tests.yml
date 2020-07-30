@@ -2,8 +2,6 @@ name: tests
 
 on:
   push:
-  pull_request:
-    branches: [ master ]
 
 jobs:
   test:
@@ -30,5 +28,10 @@ jobs:
       - name: Install dependencies
         run: bundle install
 
-      - name: Run tests
-        run: bin/rails test
+      - name: Run tests and send coverage report to CodeClimate
+        uses: paambaati/codeclimate-action@v2.6.0
+        env:
+          COVERAGE: 'true'
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_REPORTER_ID }}
+        with:
+          coverageCommand: bin/rails test
