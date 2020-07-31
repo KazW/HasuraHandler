@@ -26,7 +26,7 @@ jobs:
           ruby-version: 2.6
 
       - name: Install dependencies
-        run: bundle install
+        run: bundle install --deployment
 
       - name: Run tests and send coverage report to CodeClimate
         uses: paambaati/codeclimate-action@v2.6.0
