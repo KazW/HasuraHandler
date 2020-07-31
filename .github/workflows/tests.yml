@@ -34,3 +34,9 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_REPORTER_ID }}
         with:
           coverageCommand: bin/rails test
+
+      - name: Archive coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: coverage
