@@ -19,10 +19,10 @@ jobs:
             docs/vendor/bundle
             docs/.jekyll-cache
             docs/.jekyll-metadata
-          key: doc-gems-${{ hashFiles('docs/Gemfile.lock') }}
+          key: -doc-gems-${{ hashFiles('docs/Gemfile.lock') }}
           restore-keys: |
-            doc-gems-${{ github.ref }}
-            doc-gems
+            -doc-gems-${{ github.ref }}
+            -doc-gems
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

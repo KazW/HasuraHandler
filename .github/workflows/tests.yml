@@ -15,10 +15,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor/bundle
-          key: gems-${{ hashFiles('Gemfile.lock') }}
+          key: -gems-${{ hashFiles('Gemfile.lock') }}
           restore-keys: |
-            gems-${{ github.ref }}
-            gems
+            -gems-${{ github.ref }}
+            -gems
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
