@@ -17,7 +17,7 @@ module HasuraHandler
     end
 
     attr_reader :session_variables,
-                :headers
+                :headers,
                 :input,
                 :output,
                 :error_message
