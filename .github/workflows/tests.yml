@@ -8,17 +8,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Project
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup caching
+      - name: Cache
         uses: actions/cache@v2
         with:
           path: vendor/bundle
-          key: gems-${{ hashFiles('Gemfile.lock') }}
+          key: ${{ runner.os }}-tests-gems-${{ hashFiles('Gemfile.lock') }}
           restore-keys: |
-            gems-${{ github.ref }}
-            gems
+            ${{ runner.os }}-tests-gems-
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -26,7 +25,7 @@ jobs:
           ruby-version: 2.6
 
       - name: Install dependencies
-        run: bundle install
+        run: bundle install --path vendor/bundle --jobs 4 --retry 3
 
       - name: Run tests and send coverage report to CodeClimate
         uses: paambaati/codeclimate-action@v2.6.0
@@ -35,3 +34,9 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_REPORTER_ID }}
         with:
           coverageCommand: bin/rails test
+
+      - name: Archive coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: coverage

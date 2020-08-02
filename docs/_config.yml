@@ -5,7 +5,7 @@ description: >-
   Hasura easy. HasuraHandler also simplifies adding Hasura to an existing
   Rails stack.
 baseurl: /HasuraHandler
-url: //kazw.github.io
+url: https://kazw.github.io
 twitter_username:
 github_username:  KazW
 
@@ -17,6 +17,6 @@ color_scheme: dark
 
 aux_links:
   "HasuraHandler on GitHub":
-    - "//github.com/KazW/HasuraHandler"
+    - "https://github.com/KazW/HasuraHandler"
 
-footer_content: "&copy; 2020 Kaz Walker. Distributed under the <a href=\"https://github.com/KazW/HasuraHandler/tree/master/LICENSE.txt\">MIT license.</a>"
+footer_content: "&copy; 2020 Kaz Walker. Distributed under the <a href=\"https://github.com/KazW/HasuraHandler/tree/master/MIT-LICENSE\">MIT license.</a>"

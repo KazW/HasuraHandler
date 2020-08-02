@@ -6,35 +6,37 @@ on:
       - master
 
 jobs:
-  publish:
+  update-docs:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out
+      - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Setup caching
+      - name: Cache
         uses: actions/cache@v2
         with:
-          path: docs/vendor/bundle
-          key: doc-gems-${{ hashFiles('docs/Gemfile.lock') }}
+          path: |
+            docs/vendor/bundle
+            docs/.jekyll-cache
+          key: ${{ runner.os }}-docs-gems-${{ hashFiles('docs/Gemfile.lock') }}
           restore-keys: |
-            doc-gems-${{ github.ref }}
-            doc-gems
+            ${{ runner.os }}-docs-gems-
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6
 
-      - name: Build docs
+      - name: Install Jekyll
         working-directory: docs
-        run: |
-          bundle install
-          bundle exec just-the-docs rake search:init
-          bundle exec jekyll build
+        run: bundle install --path vendor/bundle --jobs 4 --retry 3
+
+      - name: Build
+        working-directory: docs
+        run: bundle exec jekyll build
 
       - name: Publish
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/_site
+          publish_dir: docs/_site
