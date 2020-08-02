@@ -9,9 +9,13 @@ module HasuraHandler
       end
 
       klass = HasuraHandler::Action.hasura_actions[action_params['action']['name']]
-      action = klass.new(action_params['session_variables'].to_h, action_params['input'].to_h)
-      action.run
+      action = klass.new(
+        request.headers.reject{ |k,v| k.include?('.') }.to_h,
+        action_params['session_variables'].to_h,
+        action_params['input'].to_h
+      )
 
+      action.run
       if action.error_message.present?
         render json: { error: true, message: action.error_message }, status: 400
       else

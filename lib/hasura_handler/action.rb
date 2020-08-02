@@ -17,11 +17,13 @@ module HasuraHandler
     end
 
     attr_reader :session_variables,
+                :headers,
                 :input,
                 :output,
                 :error_message
 
-    def initialize(session_variables, input)
+    def initialize(headers, session_variables, input)
+      @headers = headers
       @session_variables = session_variables
       @input = input
       @output = {}
