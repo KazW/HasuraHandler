@@ -10,7 +10,7 @@ module HasuraHandler
 
       klass = HasuraHandler::Action.hasura_actions[action_params['action']['name']]
       action = klass.new(
-        request.headers,
+        request.headers.reject{ |k,v| k.include?('.') }.to_h,
         action_params['session_variables'].to_h,
         action_params['input'].to_h
       )
