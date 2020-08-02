@@ -1,2 +1,32 @@
-{
+{"0": {
+    "doc": "Home",
+    "title": "Build Realtime GraphQL Rails Apps",
+    "content": "HasuraHandler is a Rails framework that makes building microservices for Hasura easy. HasuraHandler also simplifies adding Hasura to an existing Rails app. Learn about Hasura Get Started . ",
+    "url": "https://kazw.github.io/HasuraHandler/#build-realtime-graphql-rails-apps",
+    "relUrl": "/#build-realtime-graphql-rails-apps"
+  },"1": {
+    "doc": "Home",
+    "title": "Summary",
+    "content": "HasuraHandler is a Rails engine, by default it will add 2 routes where it is mounted; one for actions, one for events. Actions allow you to return information to a GraphQL query/mutation, such as verifying a usename/password and generating a login token. Events allow you to receive information and react to it accordingly, such as sending an updated record to a search backend/provider for indexing. ",
+    "url": "https://kazw.github.io/HasuraHandler/#summary",
+    "relUrl": "/#summary"
+  },"2": {
+    "doc": "Home",
+    "title": "What can Hasura do?",
+    "content": "When using Hasura as part of a Rails app, Hasura can act as several pieces of infrastructure: . | A GraphQL API gateway that supports subscriptions over websockets. | An internal event-based webhook service that delivers records to endpoints when they’re insertted/updated/deleted. | As a data access layer where services use it as a master data store. | An internal webhook scheduling service that can deliver one-off or recurring events to endpoints. | . Since Hasura can be used in so many ways, it can be added to an application stack incrementally for existing Rails apps. For new Rails apps, considering ways to use this functionality can radically alter the way you think about building and architecting your app. ",
+    "url": "https://kazw.github.io/HasuraHandler/#what-can-hasura-do",
+    "relUrl": "/#what-can-hasura-do"
+  },"3": {
+    "doc": "Home",
+    "title": "Quick Start",
+    "content": ". | Add the gem to your project gem 'hasura_handler' . | Create config/initializers/hasura_handler.rb: HasuraHandler.setup do |config| config.auth_key = ENV['HASURA_SERVICE_KEY'] || Rails.application.credentials.hasura_service_key end . | Create the following directories: . | app/actions | app/reactions | . | Add routes in config/routes.rb: mount HasuraHandler::Engine =&gt; '/hasura' . | Add the following to both config/environments/{development,test}.rb: config.to_prepare do Dir[Rails.root.join('app', '{actions,reactions}', '*.rb')].each{ |file| require_dependency file } end . | Create event trigger in Hasura: TODO . | Create event reaction in app/reactions/welcome_user.rb: class WelcomeUser &lt; HasuraHandler::EventHandler match_by trigger: 'user_inserted' def run Rails.logger.info('A new user signed up!') end end . | . ",
+    "url": "https://kazw.github.io/HasuraHandler/#quick-start",
+    "relUrl": "/#quick-start"
+  },"4": {
+    "doc": "Home",
+    "title": "Home",
+    "content": " ",
+    "url": "https://kazw.github.io/HasuraHandler/",
+    "relUrl": "/"
+  }
 }
