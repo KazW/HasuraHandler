@@ -1,4 +1,5 @@
 require 'hasura_handler/engine'
+require 'hasura_handler/authenticator'
 require 'hasura_handler/event_handler'
 require 'hasura_handler/event_processor'
 require 'hasura_handler/event'

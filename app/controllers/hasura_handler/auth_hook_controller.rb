@@ -3,19 +3,24 @@ require_dependency "hasura_handler/application_controller"
 module HasuraHandler
   class AuthHookController < ApplicationController
     def get_mode
-      @headers = clean_headers
+      @headers = clean_headers.to_h.select{ |k,v| k =~ /\AHTTP_/ }.to_h
       authenticate
     end
 
     def post_mode
-      @headers = JSON.parse(request.raw_post).
-        map{ |k,v| [k.to_s.sub('-', '_').upcase, v] }.
+      @headers = post_params['auth_hook']['headers'].
+        to_h.
+        map{ |k,v| ['HTTP_' + k.to_s.gsub('-', '_').upcase, v] }.
         to_h
 
       authenticate
     end
 
     private
+
+    def post_params
+      params.permit(auth_hook: {}, headers: {})
+    end
 
     def authenticate
       @authenticator = HasuraHandler.authenticator.new(@headers)
