@@ -1,7 +1,5 @@
 module HasuraHandler
   class ApplicationController < ActionController::API
-    before_action :check_header
-
     private
 
     def check_header
@@ -11,7 +9,11 @@ module HasuraHandler
     end
 
     def full_params
-      ActionController::Parameters.new(JSON.parse(request.body.read))
+      ActionController::Parameters.new(JSON.parse(request.raw_post))
+    end
+
+    def clean_headers
+      request.headers.reject{ |k,v| k.include?('.') }.to_h
     end
   end
 end

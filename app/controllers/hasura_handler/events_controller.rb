@@ -2,6 +2,8 @@ require_dependency 'hasura_handler/application_controller'
 
 module HasuraHandler
   class EventsController < ApplicationController
+    before_action :check_header
+
     def index
       processor = HasuraHandler::EventProcessor.new(event_params.to_h)
 
@@ -35,6 +37,7 @@ module HasuraHandler
       full_params.permit(
         :id,
         :created_at,
+        delivery_info: {},
         table: [
           :schema,
           :name
@@ -46,10 +49,7 @@ module HasuraHandler
           :op,
           {
             session_variables: {},
-            data: {
-              new: {},
-              old: {}
-            }
+            data: {}
           }
         ]
       )
