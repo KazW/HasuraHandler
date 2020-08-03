@@ -11,5 +11,9 @@ module HasuraHandler
     def full_params
       ActionController::Parameters.new(JSON.parse(request.body.read))
     end
+
+    def clean_headers
+      request.headers.reject{ |k,v| k.include?('.') }.to_h
+    end
   end
 end
