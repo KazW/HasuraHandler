@@ -8,6 +8,8 @@ module HasuraHandler
   class << self
     mattr_accessor :auth_header,
                    :auth_key,
+                   :authentication_enabled,
+                   :authenticator,
                    :events_enabled,
                    :actions_enabled,
                    :event_job_queue,
@@ -17,6 +19,8 @@ module HasuraHandler
                    :retry_after
 
     self.auth_header = 'HTTP_X_HASURA_SERVICE_KEY'
+    self.authentication_enabled = false
+    self.authenticator = nil
     self.events_enabled = true
     self.async_events = true
     self.fanout_events = true
@@ -28,8 +32,13 @@ module HasuraHandler
 
   def self.setup(&block)
     yield self
-    [:auth_key].each do |key|
-      raise "HasuraHandler requires the #{key} to be configured." if self.send(key).blank?
+
+    if (self.events_enabled || self.actions_enabled) && self.auth_key.blank?
+      raise "HasuraHandler requires the auth_key to be configured if actions or events are enabled."
+    end
+
+    if self.authentication_enabled && self.authenticator.blank?
+      raise "HasuraHandler requires the authenticator to be configured if authentication hook is enabled."
     end
   end
 end
