@@ -9,7 +9,7 @@ module HasuraHandler
     end
 
     def full_params
-      ActionController::Parameters.new(JSON.parse(request.body.read))
+      ActionController::Parameters.new(JSON.parse(request.raw_post))
     end
 
     def clean_headers
