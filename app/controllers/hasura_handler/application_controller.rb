@@ -1,7 +1,5 @@
 module HasuraHandler
   class ApplicationController < ActionController::API
-    before_action :check_header
-
     private
 
     def check_header

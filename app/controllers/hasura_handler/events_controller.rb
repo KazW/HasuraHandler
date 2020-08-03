@@ -2,6 +2,8 @@ require_dependency 'hasura_handler/application_controller'
 
 module HasuraHandler
   class EventsController < ApplicationController
+    before_action :check_header
+
     def index
       processor = HasuraHandler::EventProcessor.new(event_params.to_h)
 

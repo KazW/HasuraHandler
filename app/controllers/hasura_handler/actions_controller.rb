@@ -2,6 +2,8 @@ require_dependency 'hasura_handler/application_controller'
 
 module HasuraHandler
   class ActionsController < ApplicationController
+    before_action :check_header
+
     def index
       unless HasuraHandler::Action.hasura_actions.keys.include?(action_params['action']['name'])
         render json: { error: true, message: 'action name not registered' }, status: 404
