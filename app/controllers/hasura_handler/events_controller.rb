@@ -37,6 +37,7 @@ module HasuraHandler
       full_params.permit(
         :id,
         :created_at,
+        delivery_info: {},
         table: [
           :schema,
           :name
@@ -48,10 +49,7 @@ module HasuraHandler
           :op,
           {
             session_variables: {},
-            data: {
-              new: {},
-              old: {}
-            }
+            data: {}
           }
         ]
       )
