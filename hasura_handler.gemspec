@@ -2,7 +2,7 @@ $:.push File.expand_path('lib', __dir__)
 
 Gem::Specification.new do |spec|
   spec.name        = 'hasura_handler'
-  spec.version     = '0.1.7'
+  spec.version     = '0.1.8'
   spec.authors     = ['Kaz Walker']
   spec.email       = ['me@kaz.codes']
   spec.homepage    = 'https://kazw.github.io/HasuraHandler'
