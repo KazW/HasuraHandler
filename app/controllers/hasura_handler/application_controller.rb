@@ -12,8 +12,8 @@ module HasuraHandler
       end
     end
 
-    def full_params
-      ActionController::Parameters.new(JSON.parse(request.raw_post))
+    def raw_params
+      @raw_params ||= JSON.parse(request.raw_post)
     end
 
     def clean_headers

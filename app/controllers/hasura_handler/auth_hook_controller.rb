@@ -8,7 +8,7 @@ module HasuraHandler
     end
 
     def post_mode
-      @headers = post_params['auth_hook']['headers'].
+      @headers = raw_params['headers'].
         to_h.
         map{ |k,v| ['HTTP_' + k.to_s.gsub('-', '_').upcase, v] }.
         to_h
@@ -17,10 +17,6 @@ module HasuraHandler
     end
 
     private
-
-    def post_params
-      params.permit(auth_hook: {}, headers: {})
-    end
 
     def authenticate
       @authenticator = HasuraHandler.authenticator.new(@headers)

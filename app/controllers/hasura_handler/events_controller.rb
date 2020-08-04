@@ -5,7 +5,7 @@ module HasuraHandler
     before_action :check_header
 
     def index
-      processor = HasuraHandler::EventProcessor.new(event_params.to_h)
+      processor = HasuraHandler::EventProcessor.new(raw_params)
 
       unless processor.event.valid?
         error_response(processor.event.errors)
@@ -31,28 +31,6 @@ module HasuraHandler
     def error_response(errors)
       response.set_header('Retry-After', HasuraHandler.retry_after)
       render json: { success: false, errors: errors }, status: 400
-    end
-
-    def event_params
-      full_params.permit(
-        :id,
-        :created_at,
-        delivery_info: {},
-        table: [
-          :schema,
-          :name
-        ],
-        trigger: [
-          :name
-        ],
-        event: [
-          :op,
-          {
-            session_variables: {},
-            data: {}
-          }
-        ]
-      )
     end
   end
 end

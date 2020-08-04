@@ -5,16 +5,16 @@ module HasuraHandler
     before_action :check_header
 
     def index
-      unless HasuraHandler::Action.hasura_actions.keys.include?(action_params['action']['name'])
+      unless HasuraHandler::Action.hasura_actions.keys.include?(raw_params['action']['name'])
         render json: { error: true, message: 'action name not registered' }, status: 404
         return
       end
 
-      klass = HasuraHandler::Action.hasura_actions[action_params['action']['name']]
+      klass = HasuraHandler::Action.hasura_actions[raw_params['action']['name']]
       action = klass.new(
         clean_headers,
-        action_params['session_variables'].to_h,
-        action_params['input'].to_h
+        raw_params['session_variables'].to_h,
+        raw_params['input'].to_h
       )
 
       action.run
@@ -23,14 +23,6 @@ module HasuraHandler
       else
         render json: action.output
       end
-    end
-
-    def action_params
-      full_params.permit(
-        action: [:name],
-        input: {},
-        session_variables: {}
-      )
     end
   end
 end
