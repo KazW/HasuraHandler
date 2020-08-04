@@ -1,5 +1,6 @@
 module HasuraHandler
   class Authenticator
+    attr_reader :headers
     attr_accessor :response,
                   :error_message
 
