@@ -1,5 +1,9 @@
 module HasuraHandler
   class ApplicationController < ActionController::API
+    def protect_against_forgery?
+      false
+    end
+
     private
 
     def check_header
