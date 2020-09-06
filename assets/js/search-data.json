@@ -19,7 +19,7 @@
   },"3": {
     "doc": "Home",
     "title": "Quick Start",
-    "content": ". | Add the gem to your project gem 'hasura_handler' . | Create config/initializers/hasura_handler.rb: HasuraHandler.setup do |config| config.auth_key = ENV['HASURA_SERVICE_KEY'] || Rails.application.credentials.hasura_service_key end . | Create the following directories: . | app/actions | app/reactions | . | Add routes in config/routes.rb: mount HasuraHandler::Engine =&gt; '/hasura' . | Add the following to both config/environments/{development,test}.rb: config.to_prepare do Dir[Rails.root.join('app', '{actions,reactions}', '*.rb')].each{ |file| require_dependency file } end . | Create event trigger in Hasura: TODO . | Create event reaction in app/reactions/welcome_user.rb: class WelcomeUser &lt; HasuraHandler::EventHandler match_by trigger: 'user_inserted' def run Rails.logger.info('A new user signed up!') end end . | . ",
+    "content": ". | Add the gem to your project gem 'hasura_handler', '~&gt; 0.1.0' . | Create config/initializers/hasura_handler.rb: HasuraHandler.setup do |config| config.auth_key = ENV['HASURA_SERVICE_KEY'] || Rails.application.credentials.hasura_service_key end . | Create the following directories: . | app/actions | app/reactions | . | Add routes in config/routes.rb: mount HasuraHandler::Engine =&gt; '/hasura' . | Create event trigger in Hasura: TODO . | Create event reaction in app/reactions/welcome_user.rb: class WelcomeUser &lt; HasuraHandler::EventHandler match_by trigger: 'user_inserted' def run Rails.logger.info('A new user signed up!') end end . | . ",
     "url": "https://kazw.github.io/HasuraHandler/#quick-start",
     "relUrl": "/#quick-start"
   },"4": {
