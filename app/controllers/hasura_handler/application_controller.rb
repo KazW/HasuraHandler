@@ -17,7 +17,12 @@ module HasuraHandler
     end
 
     def clean_headers
-      request.headers.reject{ |k,v| k.include?('.') }.to_h
+      request.
+      headers.
+      reject{ |k,v| k.include?('.') }.
+      to_h.
+      select{ |k,v| k =~ /\AHTTP_/ }.
+      to_h
     end
   end
 end

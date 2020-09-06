@@ -3,14 +3,14 @@ require_dependency "hasura_handler/application_controller"
 module HasuraHandler
   class AuthHookController < ApplicationController
     def get_mode
-      @headers = clean_headers.to_h.select{ |k,v| k =~ /\AHTTP_/ }.to_h
+      @headers = clean_headers
       authenticate
     end
 
     def post_mode
       @headers = raw_params['headers'].
         to_h.
-        map{ |k,v| ['HTTP_' + k.to_s.gsub('-', '_').upcase, v] }.
+        map{ |k,v| [standardize_header(k), v] }.
         to_h
 
       authenticate
@@ -19,13 +19,21 @@ module HasuraHandler
     private
 
     def authenticate
-      @authenticator = HasuraHandler.authenticator.new(@headers)
+      @authenticator = HasuraHandler.
+        authenticator.
+        to_s.
+        constantize.
+        new(@headers)
 
       if @authenticator.success?
         render json: @authenticator.response, status: 200
       else
         render json: { error: true, message: @authenticator.error_message }, status: 401
       end
+    end
+
+    def standardize_header(header)
+      "HTTP_#{header.to_s.gsub('-', '_').upcase}"
     end
   end
 end

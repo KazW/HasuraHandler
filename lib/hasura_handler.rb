@@ -35,11 +35,11 @@ module HasuraHandler
     yield self
 
     if (self.events_enabled || self.actions_enabled) && self.auth_key.blank?
-      raise "HasuraHandler requires the auth_key to be configured if actions or events are enabled."
+      raise 'HasuraHandler requires the auth_key to be configured if actions or events are enabled.'
     end
 
     if self.authentication_enabled && self.authenticator.blank?
-      raise "HasuraHandler requires the authenticator to be configured if authentication hook is enabled."
+      raise 'HasuraHandler requires the authenticator to be configured if authentication hook is enabled.'
     end
   end
 end

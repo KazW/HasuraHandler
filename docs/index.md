@@ -3,7 +3,7 @@ layout: default
 title: Home
 nav_exclude: true
 permalink: /
-last_modified_date: 2020-07-27T05:39:31+0000
+last_modified_date: 2020-08-20T11:07:47+0000
 ---
 
 # Build Realtime GraphQL Rails Apps
@@ -48,7 +48,7 @@ building and architecting your app.
 
 1. Add the gem to your project
 ```ruby
-gem 'hasura_handler'
+gem 'hasura_handler', '~> 0.1.0'
 ```
 
 2. Create `config/initializers/hasura_handler.rb`:
@@ -67,16 +67,9 @@ end
 mount HasuraHandler::Engine => '/hasura'
 ```
 
-5. Add the following to both `config/environments/{development,test}.rb`:
-```ruby
-config.to_prepare do
-  Dir[Rails.root.join('app', '{actions,reactions}', '*.rb')].each{ |file| require_dependency file }
-end
-```
+5. Create event trigger in Hasura: **TODO**
 
-6. Create event trigger in Hasura: **TODO**
-
-7. Create event reaction in `app/reactions/welcome_user.rb`:
+6. Create event reaction in `app/reactions/welcome_user.rb`:
 ```ruby
     class WelcomeUser < HasuraHandler::EventHandler
       match_by trigger: 'user_inserted'
