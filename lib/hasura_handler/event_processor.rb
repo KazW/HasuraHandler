@@ -7,10 +7,20 @@ module HasuraHandler
     end
 
     def process_later
+      unless event_handlers.present?
+        log_missing_handler
+        return
+      end
+
       HasuraHandler::EventJob.perform_later(@event.raw_event)
     end
 
     def process
+      unless event_handlers.present?
+        log_missing_handler
+        return
+      end
+
       event_handlers.each do |handler_class|
         if HasuraHandler.fanout_events
           HasuraHandler::EventHandlerJob.perform_later(handler_class.to_s, @event.raw_event)
@@ -19,20 +29,20 @@ module HasuraHandler
           handler.run
         end
       end
-
-      if event_handlers.size == 0
-        Rails.logger.debug('[HasuraHandler] Received event with no matching handlers.')
-      end
     end
 
     private
+
+    def log_missing_handler
+        Rails.logger.debug('[HasuraHandler] Received event with no matching handlers.')
+    end
 
     def event_handlers
       HasuraHandler::EventHandler.
       descendants.
       map{ |klass| [klass, klass.hasura_matchers] }.
       to_h.
-      select{ |klass, matchers| matchers.present? }.
+      select{ |klass,matchers| matchers.present? }.
       map{ |klass,matchers| [klass, check_matchers(matchers)] }.
       to_h.
       select{ |klass,match| match }.
