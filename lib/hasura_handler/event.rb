@@ -2,17 +2,18 @@ module HasuraHandler
   class Event
     attr_reader :id,
                 :table,
+                :schema,
                 :trigger,
                 :event,
                 :op,
                 :created_at,
                 :raw_event,
-                :errors,
-                :valid
+                :errors
 
     def initialize(event)
       @id = event['id']
       @table = event['table']['name']
+      @schema = event['table']['schema']
       @trigger = event['trigger']['name']
       @event = event['event']
       @op = event['event']['op']
@@ -49,7 +50,7 @@ module HasuraHandler
         return
       end
 
-      string_fields?(@raw_event['table'], 'table', [:schema, :name])
+      string_fields?(@raw_event['table'], 'table', ['schema', 'name'])
     end
 
     def validate_trigger
@@ -58,7 +59,7 @@ module HasuraHandler
         return
       end
 
-      string_fields?(@raw_event['trigger'], 'trigger', [:name])
+      string_fields?(@raw_event['trigger'], 'trigger', ['name'])
     end
 
     def validate_event
@@ -68,7 +69,7 @@ module HasuraHandler
       end
 
       @errors['event.session_variables'] = 'not a hash' unless @event['session_variables'].is_a?(Hash)
-      string_fields?(@event, 'event', [:op])
+      string_fields?(@event, 'event', ['op'])
 
       [:new, :old].each do |field|
         unless @event[field].nil? || @event[field].is_a?(Hash)
