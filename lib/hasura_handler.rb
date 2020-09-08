@@ -16,8 +16,7 @@ module HasuraHandler
                    :event_job_queue,
                    :event_handler_job_queue,
                    :async_events,
-                   :fanout_events,
-                   :retry_after
+                   :fanout_events
 
     self.auth_header = 'HTTP_X_HASURA_SERVICE_KEY'
     self.authentication_enabled = false
@@ -28,7 +27,6 @@ module HasuraHandler
     self.actions_enabled = true
     self.event_job_queue = :hasura_event
     self.event_handler_job_queue = :hasura_event
-    self.retry_after = 5
   end
 
   def self.setup(&block)

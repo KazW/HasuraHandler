@@ -29,7 +29,6 @@ module HasuraHandler
     private
 
     def error_response(errors)
-      response.set_header('Retry-After', HasuraHandler.retry_after)
       render json: { success: false, errors: errors }, status: 400
     end
   end
